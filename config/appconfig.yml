@@ -1,5 +1,6 @@
 development:
   partner_api:
+    application_name: "some unique thing you make up"
     access_key: "my access key"
     secret_key: "my secret key"
   amazon:
@@ -9,6 +10,7 @@ development:
     
 production:
   partner_api:
+    application_name: "some unique thing you make up"
     access_key: "my access key"
     secret_key: "my secret key"
   amazon:
