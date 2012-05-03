@@ -1,6 +1,6 @@
 == Welcome to the music xray demo rails app
 
-To install, please clone the directory then run bundle install to install
+To install, please clone this repository then run bundle install to install
 dependencies. This code is only working for the specified gem versions under
 ruby 1.9.2 please ensure that your environment is up to date.
 
