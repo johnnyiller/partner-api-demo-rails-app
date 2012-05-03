@@ -1,0 +1,41 @@
+<%- model_class = Track.new.class -%>
+<div class="row">
+<div class="span1">
+<h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<div class="span1">
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_track_path,
+            :class => 'btn btn-primary' %>
+</div>
+</div>
+<%= paginate @tracks %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th width="100">id</th>
+      <th>file location</th>
+      <th>created at</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tracks.each do |track| %>
+      <tr>
+        <td><%= link_to "view track #{track.id}", track_path(track) %></td>
+        <td><%= track.mp3_file.url %></td>
+        <td><%= track.created_at.to_s(:short) %></td>
+        <td>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      track_path(track),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

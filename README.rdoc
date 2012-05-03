@@ -1,0 +1,22 @@
+== Welcome to the music xray demo rails app
+
+To install, please clone the directory then run bundle install to install
+dependencies. This code is only working for the specified gem versions under
+ruby 1.9.2 please ensure that your environment is up to date.
+
+This app uses amazon s3 to store uploaded files.  In order to use this application
+you must create a bucket that can be used to store file uploads.
+
+Once you have cloned the demo app run rake db:migrate
+
+after that edit config/appconfig.yml to reflect your specific configuration settings.
+
+for more information and a detailed screencast of how the demo app works please visit our 
+documentation website.
+
+http://docs.musicxray.com
+
+or email
+
+jeff@musicxray.com
+

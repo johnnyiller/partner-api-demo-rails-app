@@ -1,0 +1,17 @@
+development:
+  partner_api:
+    access_key: "my access key"
+    secret_key: "my secret key"
+  amazon:
+    bucket: "my_songs"
+    access_key: "aws_access_key"
+    secret_key: "aws_secret_key"
+    
+production:
+  partner_api:
+    access_key: "my access key"
+    secret_key: "my secret key"
+  amazon:
+    bucket: "my_songs"
+    access_key: "aws_access_key"
+    secret_key: "aws_secret_key"

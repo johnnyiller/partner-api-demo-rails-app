@@ -1,0 +1,76 @@
+<%- model_class = @track.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human %></h1>
+<p>
+<%= link_to raw("<i class=\"icon-refresh icon-white\"></i> Refresh this page"), track_path(@track), :class=>"btn btn-success" %>
+</p>
+<p>
+<audio src="<%= @track.mp3_file.url %>" controls preload="auto" autobuffer>
+</p>
+<p>
+	<%= @track.mp3_file.url %>
+</p>
+<% if @track.partner_api_track %>
+  
+<% if @track.partner_api_track.drop_boxes.empty? %>
+  <p>
+		Notice that once the track has been extracted and marked as such it is ready for matching requests.  Please click the
+		button below to start the matching process.  In order to avoid constantly pinging our api we post back to your application when the song is extracted and also when the matches are found.  However, in this example we are going to show how to poll the server.  For information on setting up an instant notifications script on your server please contact jeff@musicxray.com
+	</p>
+	
+  <div class="btn-toolbar">
+	  <div class="btn-group">
+	<%#= link_to "Start Feature Extraction", "#", :class=>"btn" %>
+	  <% if @track.partner_api_track.state == "extracted" %>
+			
+	      <p>Only click this button if you've never clicked it before.  Otherwise you will just be backing up the processing queue for while we process your previous request.</p>
+	      <%= link_to "Send Track Match Request", "#{send_track_match_request_track_path(@track)}", :class=>"btn btn-primary", :method=>:post %>
+	    
+		<% else %>
+	     <p>Still processing on api servers</p>
+	  <% end %>
+	  <%#= link_to "View Matches", "#", :class=>"btn" %>
+	  </div>
+  </div>
+<% else %>
+  <h4>Looks like you have some matches</h4>
+  <h5>Here they are.</h5>
+  <ul class="unstyled">
+	  <% @track.partner_api_track.drop_boxes.each do |drop_box| %>
+	  <li>
+	  	<div class="row">
+				<div class="span2">
+					<%= link_to image_tag(drop_box.image, :width=>"150"), drop_box.link %>
+				</div>
+				<div class="span5">
+					<h4>
+						<%= drop_box.title %>
+					</h4>
+					<div><%= drop_box.description %></div>
+					<%= link_to "submit now", "#{drop_box.link}", :class=>"btn" %>
+					<br/><br/>
+				</div>
+			</div>
+	  </li>
+		<% end %>
+	</ul>
+<% end %>
+<h4>Yaml printout of track object from api</h4>
+<pre>
+  <%=raw @track.partner_api_track.to_yaml %>
+</pre>
+<% else %>
+  <div class="warning">
+  	Your song has been uploaded to amazon but it has not been added to our api for feature extraction.  Please click the button to start the process.
+  </div>
+  <%= link_to "Add track and extract features", add_track_to_api_track_path(@track), :method=>:post, :class=>"btn btn-primary" %>
+<% end %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              tracks_path, :class => 'btn'  %>
+
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              track_path(@track),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>
